@@ -1,7 +1,7 @@
 let innerWidth = window.innerWidth;
 let innerHeight = window.innerHeight;
-let defaultSpiderWidth = 50;
-let defaultSpiderHeight = 50;
+let defaultSpiderWidth = 80;
+let defaultSpiderHeight = 80;
 
 let svgContainer = d3.select('body')
     .append('svg')
@@ -47,11 +47,11 @@ let spiders = d3.range(20).map(function() {
     .attr('transform', function (spider) {
         return 'translate(' + spider.x + ',' + spider.y + ') rotate(' + spider.r + ',' + (spider.w / 2) + ',' + (spider.h / 2) + ')'
     })
-     .on("dblclick", doubleclicked)
      .call(d3.drag()
      .on("start", dragstarted)
      .on("drag", dragged)
-     .on("end", dragended));
+     .on("end", dragended))
+     .on("dblclick", doubleclicked);
 
 
 function dragstarted(d) {
@@ -59,8 +59,6 @@ function dragstarted(d) {
 }
 
 function dragged(d) {
-    if (d3.event.defaultPrevented) return; // dragged
-
     d3.select(this).attr("posX", d.x = d3.event.x).attr("posY", d.y = d3.event.y).attr('transform', function (spider) {
         return 'translate(' + spider.x + ',' + spider.y + ') rotate(' + spider.r + ',' + (spider.w / 2) + ',' + (spider.h / 2) + ')'
     });
@@ -70,9 +68,8 @@ function dragended() {
         d3.select(this).classed("draggable", false);
 }
 function doubleclicked(d) {
-    d3.select(this).attr("width", d.w = defaultSpiderWidth/1.5).attr("height", d.h = defaultSpiderHeight/1.5).attr('transform', function (spider) {
-        return 'translate(' + spider.x + ',' + spider.y + ') rotate(' + spider.r + ',' + (spider.w / 2) + ',' + (spider.h / 2) + ')'
-    });
+
+    d3.select(this).attr("width", d.w = defaultSpiderWidth/2.1).attr("height", d.h = defaultSpiderHeight/2.1).attr('transform', function (spider) {
+        return 'translate(' + (spider.x + 20)  + ',' + (spider.y + 20) + ') rotate(' + spider.r + ',' + (spider.w / 2) + ',' + (spider.h / 2) + ')'
+    }).attr("posX", d.x = d3.event.x - 20).attr("posY", d.y = d3.event.y - 20);
 }
-
-
