@@ -1,17 +1,17 @@
-let innerWidth = window.innerWidth;
-let innerHeight = window.innerHeight;
-let defaultSpiderWidth = 80;
-let defaultSpiderHeight = 80;
+const innerWidth = window.innerWidth;
+const innerHeight = window.innerHeight;
+const defaultSpiderWidth = 70;
+const defaultSpiderHeight = 70;
 
-let svgContainer = d3.select('body')
+const svgContainer = d3.select('body')
     .append('svg')
     .attr('width', '100%')
     .attr('height', '100%');
 
-let spiders = d3.range(20).map(function() {
+const spiders = d3.range(20).map(function() {
 
-    let maxXPosition = (innerWidth - defaultSpiderWidth);
-    let maxYPosition = (innerHeight - defaultSpiderHeight);
+    const maxXPosition = (innerWidth - defaultSpiderWidth);
+    const maxYPosition = (innerHeight - defaultSpiderHeight);
     return {
 
         x : Math.round(Math.random() * maxXPosition),
@@ -70,6 +70,6 @@ function dragended() {
 function doubleclicked(d) {
 
     d3.select(this).attr("width", d.w = defaultSpiderWidth/2.1).attr("height", d.h = defaultSpiderHeight/2.1).attr('transform', function (spider) {
-        return 'translate(' + (spider.x + 20)  + ',' + (spider.y + 20) + ') rotate(' + spider.r + ',' + (spider.w / 2) + ',' + (spider.h / 2) + ')'
-    }).attr("posX", d.x = d3.event.x - 20).attr("posY", d.y = d3.event.y - 20);
+        return 'translate(' + (spider.x + 20 )  + ',' + (spider.y + 20) + ') rotate(' + spider.r + ',' + (spider.w / 2) + ',' + (spider.h / 2) + ')'
+    }).attr("posX", d.x = d3.event.x - 15 ).attr("posY", d.y = d3.event.y - 15 );
 }
